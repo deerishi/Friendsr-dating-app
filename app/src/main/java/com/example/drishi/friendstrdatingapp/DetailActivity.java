@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -66,6 +67,6 @@ public class DetailActivity extends SimpleActivity {
         map1.put("Joey","Joey is a handsome, funny and sexy guy!");
         map1.put("Monica","Monica is a sexy, funny and high maintenence (lol) girl!");
         map1.put("Ross","Ross is a smart, charming and elegant guy!");
-        map1.put("Rachael","Rachael is a hot, sexy and funny girl!");
+        map1.put("Rachael","Rachel is a hot, sexy and funny girl!");
     }
 }

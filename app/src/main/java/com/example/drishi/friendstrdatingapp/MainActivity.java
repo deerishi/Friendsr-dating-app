@@ -14,7 +14,7 @@ import android.widget.TextView;
 import stanford.androidlib.SimpleActivity;
 
 public class MainActivity extends SimpleActivity {
-
+    private String changed="Chandler";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTraceLifecycle(true);
@@ -37,10 +37,17 @@ public class MainActivity extends SimpleActivity {
 
 
     }
-
+    static public  int getIntCode(String name){
+        int res=0;
+        for(int i=0;i<name.length();i++){
+            res+=Character.getNumericValue(name.charAt(i));
+        }
+        return res;
+    }
     private void addFriend(int imgId, String name, float rating, GridLayout parent){
         Log.d("layoutInflate","Adding Layout for "+name+" with rating "+rating);
         View view=getLayoutInflater().inflate(R.layout.preview,null);
+        view.setId(MainActivity.getIntCode(name));
         ImageButton ib=(ImageButton)view.findViewById(R.id.dp);
         ib.setTag(name);
         TextView tv=(TextView) view.findViewById(R.id.name);
@@ -51,9 +58,22 @@ public class MainActivity extends SimpleActivity {
             @Override
             public void onClick(View v) {
                 String name=(String) v.getTag();
+                changed=name;
                 friendClick(name);
+
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp=getSharedPreferences("FriendsRating",MODE_PRIVATE);
+        View view=find(getIntCode(changed));RatingBar rb=(RatingBar) view.findViewById(R.id.rating);
+        float newRating=sp.getFloat(changed,5);
+        Log.d("newRating","newRating is "+newRating);
+        rb.setRating(newRating);
 
     }
 }
